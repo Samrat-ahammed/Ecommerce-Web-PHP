@@ -1,3 +1,9 @@
+<!-- connect include folder -->
+<?php
+include("./includes/connect.php");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -165,15 +171,19 @@
                             <h4>Delivery Brands</h4>
                         </a>
                     </li>
-                    <li class="nav-item px-2">
-                        <a href="#" class="nav-link text-light text-center">Brands</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a href="#" class="nav-link text-light text-center">Brands</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a href="#" class="nav-link text-light text-center">Brands</a>
-                    </li>
+
+                    <?php 
+                    $select_query = "SELECT * FROM `brands`";
+                    $result_brands = mysqli_query($conn, $select_query);
+                    while($row_data = mysqli_fetch_assoc($result_brands)){
+                        $brand_title = $row_data["brands_title"];
+                        $brands_id = $row_data["brands_id"];
+                        echo "
+                        <li class='nav-item px-2'>
+                         <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>$brand_title</a>
+                    </li>";
+                    }?>
+
                 </ul>
 
                 <!-- Categories -->
@@ -183,15 +193,17 @@
                             <h4>Categories</h4>
                         </a>
                     </li>
-                    <li class="nav-item px-2">
-                        <a href="#" class="nav-link text-light text-center">Brands</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a href="#" class="nav-link text-light text-center">Brands</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a href="#" class="nav-link text-light text-center">Brands</a>
-                    </li>
+                    <?php 
+                        $select_query = "SELECT * FROM `category`";
+                        $result_category = mysqli_query($conn, $select_query); // Corrected variable name here
+                        while($row_data = mysqli_fetch_assoc($result_category)){
+                         $category_title = $row_data["category_title"];
+                         $category_id = $row_data["category_id"];
+                          echo "
+                             <li class='nav-item px-2'>
+                                     <a href='#' class='nav-link text-light text-center'>$category_title</a>
+                                                  </li>";
+                                                                              }?>
                 </ul>
 
 

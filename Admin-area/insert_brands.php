@@ -23,7 +23,9 @@ if(isset($_POST['insert_brands'])) {
 ?>
 
 
-
+<div class="bg-light">
+    <h3 class="text-center p-2">Insert Brands</h3>
+</div>
 <form action="" method="post" class="mb-2">
 
     <div class="input-group w-90 mb-2">

@@ -104,9 +104,7 @@
         <!-- four child  -->
 
         <div class="container my-5">
-            <div class="bg-light">
-                <h3 class="text-center p-2">Products Details</h3>
-            </div>
+
             <?php
            if(isset($_GET["insert_category"]) ) {
             include("insert_category.php");
