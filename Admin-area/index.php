@@ -62,7 +62,7 @@
 
                 <!-- all button -->
                 <div class="button text-center d-flex">
-                    <button class=" rounded shadow my-2"><a href=""
+                    <button class=" rounded shadow my-2"><a href="/Admin-area/insert_product.php"
                             class="nav-link text-light bg-info my-1 mx-2 p-1">Insert
                             Products</a></button>
                     <button class=" rounded shadow my-2"><a href=""

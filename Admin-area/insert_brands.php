@@ -27,7 +27,6 @@ if(isset($_POST['insert_brands'])) {
     <h3 class="text-center p-2">Insert Brands</h3>
 </div>
 <form action="" method="post" class="mb-2">
-
     <div class="input-group w-90 mb-2">
         <span class="input-group-text bg-info" id="basic-addon1">
             <i class="fa-solid fa-receipt"></i>

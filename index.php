@@ -180,7 +180,7 @@ include("./includes/connect.php");
                         $brands_id = $row_data["brands_id"];
                         echo "
                         <li class='nav-item px-2'>
-                         <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>$brand_title</a>
+                         <a href='index.php?brand=$brand_id' class='nav-link text-light text-center'>$brand_title</a>
                     </li>";
                     }?>
 
@@ -201,7 +201,7 @@ include("./includes/connect.php");
                          $category_id = $row_data["category_id"];
                           echo "
                              <li class='nav-item px-2'>
-                                     <a href='#' class='nav-link text-light text-center'>$category_title</a>
+                                     <a href='index.php?brand=$category_id' class='nav-link text-light text-center'>$category_title</a>
                                                   </li>";
                                                                               }?>
                 </ul>
