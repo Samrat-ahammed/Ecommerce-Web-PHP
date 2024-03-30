@@ -99,7 +99,9 @@ function get_unq_brands(){
         $num_of_rows = mysqli_num_rows($result_Query);
         
         if($num_of_rows==0){
-            echo "<h2 class='text-center text-warning mt-4'>No Products have There</h2>";
+            echo "<div class='d-flex justify-content-center align-items-center vh-100'>
+            <h2 class='text-center text-warning mt-4'>No Brands available for service</h2>
+        </div>";
         }
         
         while ($row = mysqli_fetch_assoc($result_Query)) {
@@ -163,5 +165,44 @@ global $conn;
                 </li>";
          }
 }
+
+
+// searching Products 
+function searchingProducts(){
+    global $conn; // Make sure $conn is accessible inside the function
+
+    // Fetching products
+    if(isset($_GET["search_data_product"])){
+        $search_data = $_GET["search_data"];
+        // Specify the column names you want to select
+        $search_query = "SELECT * FROM `products` WHERE product_title LIKE '%$search_data%'";
+        $result_Query = mysqli_query($conn, $search_query);
+        while ($row = mysqli_fetch_assoc($result_Query)) {
+            $product_id = $row['product_id'];
+            $product_title = $row['product_title'];
+            $product_description = $row['product_description'];
+            $product_keywords = $row['product_keywords'];
+            $product_img1 = $row['product_img1'];
+            $category_id = $row['category_id'];
+            $brands_id = $row['brands_id'];
+?>
+<div class='col-md-4 mb-2'>
+    <div class='card'>
+        <img src='./Admin-area/productImages/<?php echo $product_img1; ?>' class='card-img-top' alt='...'>
+        <div class='card-body'>
+            <h5 class='card-title'><?php echo $product_title; ?></h5>
+            <p class='card-text'><?php echo $product_description; ?></p>
+            <a href='#' class='btn btn-info'>Add to Cart</a>
+            <a href='#' class='btn btn-secondary'>View More</a>
+        </div>
+    </div>
+</div>
+<?php
+        } // End of while loop
+    }
+}
+
+
+
 
 ?>

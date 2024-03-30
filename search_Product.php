@@ -57,9 +57,9 @@ include("./Functiom/common_function.php");
                             <a class="nav-link" href="#">Total-Price: 10/-</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search" action="./search_Product.php" method="get">
+                    <form class="d-flex" role="search" method="get">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="search_data">
+                            name="search_data_product">
                         <input type="submit" value="Search" class="btn btn-outline-light" name="search_data_product">
                     </form>
 
@@ -97,7 +97,7 @@ include("./Functiom/common_function.php");
 
                     <?php
                             // fetching product 
-                        getProduct();
+                            searchingProducts();
                         get_unq_category();
                         get_unq_brands()
                     ?>
