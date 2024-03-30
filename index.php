@@ -1,6 +1,7 @@
 <!-- connect include folder -->
 <?php
 include("./includes/connect.php");
+include("./Functiom/common_function.php");
 ?>
 
 
@@ -18,7 +19,6 @@ include("./includes/connect.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <!-- link favIcon  -->
     <link rel="icon" href="../images/logo.png" type="image/x-icon">
     <!-- css file link  -->
@@ -94,47 +94,16 @@ include("./includes/connect.php");
                 <div class="row">
 
                     <?php
-// fetching product 
-$select_query = "SELECT * FROM `products`";
-$result_Query = mysqli_query($conn, $select_query);
-while ($row = mysqli_fetch_assoc($result_Query)) {
-    $product_id = $row['product_id'];
-    $product_title = $row['product_title'];
-    $product_description = $row['product_description'];
-    $product_keywords = $row['product_keywords'];
-    $product_img1 = $row['product_img1'];
-    $category_id = $row['category_id'];
-    $brands_id = $row['brands_id'];
-?>
-                    <div class='col-md-4 mb-2'>
-                        <div class='card'>
-                            <img src='./Admin-area/productImages/<?php echo $product_img1; ?>' class='card-img-top'
-                                alt='...'>
-                            <div class='card-body'>
-                                <h5 class='card-title'><?php echo $product_title; ?></h5>
-                                <p class='card-text'><?php echo $product_description; ?></p>
-                                <a href='#' class='btn btn-info'>Add to Cart</a>
-                                <a href='#' class='btn btn-secondary'>View More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-}
-?>
-
-
-
-
+                            // fetching product 
+                        getProduct();
+                        get_unq_category();
+                        get_unq_brands()
+                    ?>
                 </div>
             </div>
 
-
-
-
             <div class="col-md-2 bg-secondary p-0">
                 <!-- sideNav  -->
-
-
                 <!-- Brands  -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item bg-info px-2">
@@ -144,16 +113,8 @@ while ($row = mysqli_fetch_assoc($result_Query)) {
                     </li>
 
                     <?php 
-                    $select_query = "SELECT * FROM `brands`";
-                    $result_brands = mysqli_query($conn, $select_query);
-                    while($row_data = mysqli_fetch_assoc($result_brands)){
-                        $brand_title = $row_data["brands_title"];
-                        $brands_id = $row_data["brands_id"];
-                        echo "
-                        <li class='nav-item px-2'>
-                         <a href='index.php?brand=$brand_id' class='nav-link text-light text-center'>$brand_title</a>
-                    </li>";
-                    }?>
+                getBrands()
+                  ?>
 
                 </ul>
 
@@ -165,30 +126,17 @@ while ($row = mysqli_fetch_assoc($result_Query)) {
                         </a>
                     </li>
                     <?php 
-                        $select_query = "SELECT * FROM `category`";
-                        $result_category = mysqli_query($conn, $select_query); // Corrected variable name here
-                        while($row_data = mysqli_fetch_assoc($result_category)){
-                         $category_title = $row_data["category_title"];
-                         $category_id = $row_data["category_id"];
-                          echo "
-                             <li class='nav-item px-2'>
-                                     <a href='index.php?brand=$category_id' class='nav-link text-light text-center'>$category_title</a>
-                                                  </li>";
-                                                                              }?>
+                       getCategory()
+                       ?>
                 </ul>
 
 
             </div>
         </div>
 
-
-
-
-
         <!-- last child  -->
-
         <!-- <div class="bg-info p-3 text-center">
-  <p>Copyright © 2024 - All right reserved</p>
+<p>Copyright © 2024 - All right reserved</p>
 </div> -->
     </div>
 
