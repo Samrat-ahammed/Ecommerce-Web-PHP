@@ -8,7 +8,44 @@ function getProduct() {
     // Fetching products
     if (!isset($_GET['category']) && !isset($_GET['brand'])) {
 
-        $select_query = "SELECT * FROM `products` ORDER BY RAND() LIMIT 0,9";
+        $select_query = "SELECT * FROM `products` ORDER BY RAND() LIMIT 0,4";
+        $result_Query = mysqli_query($conn, $select_query);
+        while ($row = mysqli_fetch_assoc($result_Query)) {
+            $product_id= $row['product_id'];
+            $product_title = $row['product_title'];
+            $product_description = $row['product_description'];
+            $product_keywords = $row['product_keywords'];
+            $product_img1 = $row['product_img1'];
+            $category_id = $row['category_id'];
+            $brands_id = $row['brands_id'];
+?>
+<div class='col-md-4 mb-2'>
+    <div class='card'>
+        <img src='./Admin-area/productImages/<?php echo $product_img1; ?>' class='card-img-top' alt='...'>
+        <div class='card-body'>
+            <h5 class='card-title'><?php echo $product_title; ?></h5>
+            <p class='card-text'><?php echo $product_description; ?></p>
+            <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
+            <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
+                More</a>
+        </div>
+    </div>
+</div>
+<?php
+        } // End of while loop
+    }
+}
+
+
+// getting all products 
+
+function getAllProduct() {
+    global $conn; // Make sure $conn is accessible inside the function
+
+    // Fetching products
+    if (!isset($_GET['category']) && !isset($_GET['brand'])) {
+
+        $select_query = "SELECT * FROM `products` ORDER BY RAND()";
         $result_Query = mysqli_query($conn, $select_query);
         while ($row = mysqli_fetch_assoc($result_Query)) {
             $product_id = $row['product_id'];
@@ -25,8 +62,9 @@ function getProduct() {
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
-            <a href='#' class='btn btn-info'>Add to Cart</a>
-            <a href='#' class='btn btn-secondary'>View More</a>
+            <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
+            <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
+                More</a>
         </div>
     </div>
 </div>
@@ -39,7 +77,6 @@ function getProduct() {
 // getting category by id 
 function get_unq_category(){
     global $conn; // Make sure $conn is accessible inside the function
-
     // Fetching products
     if (isset($_GET['category'])) {
 
@@ -47,10 +84,7 @@ $category_id = $_GET['category'];
 
         $select_query = "SELECT * FROM `products` WHERE category_id = $category_id";
         $result_Query = mysqli_query($conn, $select_query);
-
-
         $num_of_rows = mysqli_num_rows($result_Query);
-        
         if($num_of_rows==0){
             echo "<h2 class='text-center text-warning mt-4'>No Products have There</h2>";
         }
@@ -70,8 +104,9 @@ $category_id = $_GET['category'];
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
-            <a href='#' class='btn btn-info'>Add to Cart</a>
-            <a href='#' class='btn btn-secondary'>View More</a>
+            <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
+            <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
+                More</a>
         </div>
     </div>
 </div>
@@ -86,16 +121,12 @@ $category_id = $_GET['category'];
 // getting Brands by id 
 function get_unq_brands(){
     global $conn; // Make sure $conn is accessible inside the function
-
     // Fetching products
     if (isset($_GET['brand'])) {
 
         $brands_id = $_GET['brand'];
-
         $select_query = "SELECT * FROM `products` WHERE brands_id = $brands_id";
         $result_Query = mysqli_query($conn, $select_query);
-
-
         $num_of_rows = mysqli_num_rows($result_Query);
         
         if($num_of_rows==0){
@@ -119,8 +150,9 @@ function get_unq_brands(){
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
-            <a href='#' class='btn btn-info'>Add to Cart</a>
-            <a href='#' class='btn btn-secondary'>View More</a>
+            <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
+            <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
+                More</a>
         </div>
     </div>
 </div>
@@ -175,8 +207,17 @@ function searchingProducts(){
     if(isset($_GET["search_data_product"])){
         $search_data = $_GET["search_data"];
         // Specify the column names you want to select
-        $search_query = "SELECT * FROM `products` WHERE product_title LIKE '%$search_data%'";
+        $search_query = "SELECT * FROM `products` WHERE product_title LIKE '%$search_data%' OR product_keywords LIKE '%$search_data%'";
         $result_Query = mysqli_query($conn, $search_query);
+        $num_of_rows = mysqli_num_rows($result_Query);
+        
+        if($num_of_rows==0){
+            echo "<div class='d-flex justify-content-center align-items-center vh-100'>
+            <h2 class='text-center text-warning mt-4'>No Products Found!</h2>
+        </div>";
+        }
+
+
         while ($row = mysqli_fetch_assoc($result_Query)) {
             $product_id = $row['product_id'];
             $product_title = $row['product_title'];
@@ -192,8 +233,9 @@ function searchingProducts(){
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
-            <a href='#' class='btn btn-info'>Add to Cart</a>
-            <a href='#' class='btn btn-secondary'>View More</a>
+            <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
+            <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
+                More</a>
         </div>
     </div>
 </div>
@@ -202,6 +244,140 @@ function searchingProducts(){
     }
 }
 
+
+// view details function 
+function view_details(){
+    global $conn; // Make sure $conn is accessible inside the function
+
+    // Fetching products
+    if (!isset($_GET['category']) && !isset($_GET['brand']) && isset($_GET['product_id'])) {
+            $product_id = $_GET['product_id'];
+
+        $select_query = "SELECT * FROM `products` WHERE product_id = $product_id";
+        $result_Query = mysqli_query($conn, $select_query);
+        while ($row = mysqli_fetch_assoc($result_Query)) {
+            $product_id= $row['product_id'];
+            $product_title = $row['product_title'];
+            $product_description = $row['product_description'];
+            $product_keywords = $row['product_keywords'];
+            $product_img1 = $row['product_img1'];
+            $product_img2 = $row['product_img2'];
+            $product_img3 = $row['product_img3'];
+            $category_id = $row['category_id'];
+            $brands_id = $row['brands_id'];
+?>
+<div class='col-md-4 mb-2'>
+    <div class='card'>
+        <img src='./Admin-area/productImages/<?php echo $product_img1; ?>' class='card-img-top' alt='...'>
+        <div class='card-body'>
+            <h5 class='card-title'><?php echo $product_title; ?></h5>
+            <p class='card-text'><?php echo $product_description; ?></p>
+            <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
+            <a href='../index.php' class='btn btn-secondary'>Go-Home</a>
+        </div>
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center text-info mb-5">Related_Products</h4>
+        </div>
+        <div class="col-md-6"> <img src='./Admin-area/productImages/<?php echo $product_img2; ?>' class='card-img-top'
+                alt='...'></div>
+        <div class="col-md-6"> <img src='./Admin-area/productImages/<?php echo $product_img3; ?>' class='card-img-top'
+                alt='...'></div>
+    </div>
+</div>
+<?php
+        } // End of while loop
+    }
+
+
+
+}
+
+
+
+
+function getIPAddress() {  
+    //whether ip is from the share internet  
+     if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+                $ip = $_SERVER['HTTP_CLIENT_IP'];  
+        }  
+    //whether ip is from the proxy  
+    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+     }  
+//whether ip is from the remote address  
+    else{  
+             $ip = $_SERVER['REMOTE_ADDR'];  
+     }  
+     return $ip;  
+}  
+
+function cart() {
+    global $conn;
+    
+    // Check if add_to_cart parameter is set
+    if(isset($_GET['add_to_cart'])) {
+        $ip = getIPAddress();
+        $get_product_id = $_GET['add_to_cart'];
+        $select_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip' and product_id = $get_product_id";
+        $result_Query = mysqli_query($conn, $select_query);
+        $num_of_rows = mysqli_num_rows($result_Query);
+        
+        if($num_of_rows > 0) {
+            // Product already in cart
+            echo "<script>alert('Product already in cart')</script>";
+        } else {
+            // Insert product into cart
+            $insert_query = "INSERT INTO `cart_details` (product_id, ip_address, quantity) VALUES ($get_product_id, '$ip', 1)";
+            $result_Query = mysqli_query($conn, $insert_query);
+            if($result_Query) {
+                // Product successfully added to cart
+                echo "<script>alert('Product successfully added to cart')</script>";
+            } else {
+                // Error adding product to cart
+                echo "<script>alert('Error adding product to cart')</script>";
+            }
+        }
+        // Redirect to index.php after message display
+        echo "<script>window.open('../index.php','_self')</script>";
+    }
+}
+
+
+// cart view_details 
+
+function get_cart_data (){
+
+    global $conn;
+    
+    // Check if add_to_cart parameter is set
+    if(isset($_GET['add_to_cart'])) {
+        $ip = getIPAddress();
+        
+        $select_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip'";
+        $result_Query = mysqli_query($conn, $select_query);
+        $cart_item_num = mysqli_num_rows($result_Query);
+        
+       
+    }else{
+        $ip = getIPAddress();
+        
+        $select_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip'";
+        $result_Query = mysqli_query($conn, $select_query);
+        $cart_item_num = mysqli_num_rows($result_Query);
+        
+        
+    }
+echo $cart_item_num;
+
+
+
+
+    
+}
 
 
 

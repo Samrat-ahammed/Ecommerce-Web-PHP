@@ -51,17 +51,15 @@ include("./Functiom/common_function.php");
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><sup><?php 
-                            get_cart_data();
-                            ?></sup> </a>
+                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><sup>1</sup> </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Total-Price: 10/-</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search" method="get">
+                    <form class="d-flex" role="search" action="./search_Product.php" method="get">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="search_data_product">
+                            name="search_data">
                         <input type="submit" value="Search" class="btn btn-outline-light" name="search_data_product">
                     </form>
 
@@ -99,7 +97,7 @@ include("./Functiom/common_function.php");
 
                     <?php
                             // fetching product 
-                            searchingProducts();
+                            getAllProduct();
                         get_unq_category();
                         get_unq_brands()
                     ?>
@@ -138,6 +136,7 @@ include("./Functiom/common_function.php");
             </div>
         </div>
 
+        <!-- last child  -->
         <?php
         include("./includes/footer.php")
         ?>

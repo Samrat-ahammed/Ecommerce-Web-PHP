@@ -2,6 +2,8 @@
 <?php
 include("./includes/connect.php");
 include("./Functiom/common_function.php");
+
+
 ?>
 
 
@@ -42,7 +44,7 @@ include("./Functiom/common_function.php");
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Products</a>
+                            <a class="nav-link" href="./display_products.php">Products</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Register</a>
@@ -59,9 +61,9 @@ include("./Functiom/common_function.php");
                             <a class="nav-link" href="#">Total-Price: 10/-</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search" method="get">
+                    <form class="d-flex" role="search" action="./search_Product.php" method="get">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="search_data_product">
+                            name="search_data">
                         <input type="submit" value="Search" class="btn btn-outline-light" name="search_data_product">
                     </form>
 
@@ -97,13 +99,18 @@ include("./Functiom/common_function.php");
             <div class="col-md-10">
                 <div class="row">
 
+                    <!-- second -->
+
+
+
                     <?php
-                            // fetching product 
-                            searchingProducts();
-                        get_unq_category();
-                        get_unq_brands()
-                    ?>
+// fetching product 
+view_details();
+get_unq_category();
+get_unq_brands()
+?>
                 </div>
+
             </div>
 
             <div class="col-md-2 bg-secondary p-0">
@@ -138,6 +145,7 @@ include("./Functiom/common_function.php");
             </div>
         </div>
 
+        <!-- last child  -->
         <?php
         include("./includes/footer.php")
         ?>

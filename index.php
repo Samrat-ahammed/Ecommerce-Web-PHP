@@ -42,7 +42,7 @@ include("./Functiom/common_function.php");
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Products</a>
+                            <a class="nav-link" href="./display_products.php">Products</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Register</a>
@@ -51,7 +51,9 @@ include("./Functiom/common_function.php");
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><sup>1</sup> </a>
+                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><sup><?php 
+                            get_cart_data();
+                            ?></sup> </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Total-Price: 10/-</a>
@@ -66,7 +68,9 @@ include("./Functiom/common_function.php");
                 </div>
             </div>
         </nav>
-
+        <?php
+         cart();
+            ?>
 
         <!-- secund child  -->
 
@@ -96,10 +100,13 @@ include("./Functiom/common_function.php");
                 <div class="row">
 
                     <?php
-                            // fetching product 
+                        // fetching product 
                         getProduct();
                         get_unq_category();
-                        get_unq_brands()
+                        get_unq_brands();
+                 
+                       
+
                     ?>
                 </div>
             </div>
@@ -115,7 +122,9 @@ include("./Functiom/common_function.php");
                     </li>
 
                     <?php 
-                getBrands()
+                getBrands();
+                
+
                   ?>
 
                 </ul>
@@ -137,9 +146,9 @@ include("./Functiom/common_function.php");
         </div>
 
         <!-- last child  -->
-        <!-- <div class="bg-info p-3 text-center">
-<p>Copyright © 2024 - All right reserved</p>
-</div> -->
+        <?php
+        include("./includes/footer.php")
+        ?>
     </div>
 
 
