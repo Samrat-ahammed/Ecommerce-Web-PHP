@@ -53,12 +53,14 @@ include("./Functiom/common_function.php");
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><sup><?php 
+                            <a class="nav-link" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php 
                             get_cart_data();
                             ?></sup> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Total-Price: 10/-</a>
+                            <a class="nav-link" href="#">Total-Price <?php
+                            total_card_price ();
+                            ?>/-</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" action="./search_Product.php" method="get">

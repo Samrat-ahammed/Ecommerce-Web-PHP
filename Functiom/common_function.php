@@ -13,7 +13,9 @@ function getProduct() {
         while ($row = mysqli_fetch_assoc($result_Query)) {
             $product_id= $row['product_id'];
             $product_title = $row['product_title'];
+            $product_price = $row['product_price'];
             $product_description = $row['product_description'];
+             $product_price = $row['product_price'];
             $product_keywords = $row['product_keywords'];
             $product_img1 = $row['product_img1'];
             $category_id = $row['category_id'];
@@ -25,6 +27,7 @@ function getProduct() {
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
+            <p class='card-text'>Price:<?php echo $product_price; ?>/-</p>
             <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
             <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
                 More</a>
@@ -51,6 +54,7 @@ function getAllProduct() {
             $product_id = $row['product_id'];
             $product_title = $row['product_title'];
             $product_description = $row['product_description'];
+             $product_price = $row['product_price'];
             $product_keywords = $row['product_keywords'];
             $product_img1 = $row['product_img1'];
             $category_id = $row['category_id'];
@@ -62,6 +66,7 @@ function getAllProduct() {
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
+            <p class='card-text'>Price:<?php echo $product_price; ?>/-</p>
             <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
             <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
                 More</a>
@@ -93,6 +98,7 @@ $category_id = $_GET['category'];
             $product_id = $row['product_id'];
             $product_title = $row['product_title'];
             $product_description = $row['product_description'];
+             $product_price = $row['product_price'];
             $product_keywords = $row['product_keywords'];
             $product_img1 = $row['product_img1'];
             $category_id = $row['category_id'];
@@ -104,6 +110,7 @@ $category_id = $_GET['category'];
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
+            <p class='card-text'>Price:<?php echo $product_price; ?>/-</p>
             <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
             <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
                 More</a>
@@ -139,6 +146,7 @@ function get_unq_brands(){
             $product_id = $row['product_id'];
             $product_title = $row['product_title'];
             $product_description = $row['product_description'];
+             $product_price = $row['product_price'];
             $product_keywords = $row['product_keywords'];
             $product_img1 = $row['product_img1'];
             $category_id = $row['category_id'];
@@ -150,6 +158,7 @@ function get_unq_brands(){
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
+            <p class='card-text'>Price:<?php echo $product_price; ?>/-</p>
             <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
             <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
                 More</a>
@@ -222,6 +231,7 @@ function searchingProducts(){
             $product_id = $row['product_id'];
             $product_title = $row['product_title'];
             $product_description = $row['product_description'];
+             $product_price = $row['product_price'];
             $product_keywords = $row['product_keywords'];
             $product_img1 = $row['product_img1'];
             $category_id = $row['category_id'];
@@ -233,6 +243,7 @@ function searchingProducts(){
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
+            <p class='card-text'>Price:<?php echo $product_price; ?>/-</p>
             <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
             <a href='../product_details.php?product_id=<?php echo $product_id; ?>' class='btn btn-secondary'>View
                 More</a>
@@ -259,6 +270,7 @@ function view_details(){
             $product_id= $row['product_id'];
             $product_title = $row['product_title'];
             $product_description = $row['product_description'];
+             $product_price = $row['product_price'];
             $product_keywords = $row['product_keywords'];
             $product_img1 = $row['product_img1'];
             $product_img2 = $row['product_img2'];
@@ -272,6 +284,7 @@ function view_details(){
         <div class='card-body'>
             <h5 class='card-title'><?php echo $product_title; ?></h5>
             <p class='card-text'><?php echo $product_description; ?></p>
+            <p class='card-text'>Price:<?php echo $product_price; ?>/-</p>
             <a href='../index.php?add_to_cart=<?php echo $product_id; ?>' class='btn btn-info'>Add to Cart</a>
             <a href='../index.php' class='btn btn-secondary'>Go-Home</a>
         </div>
@@ -372,12 +385,40 @@ function get_cart_data (){
         
     }
 echo $cart_item_num;
-
-
-
-
-    
 }
+
+// total price 
+function total_card_price (){
+    global $conn;
+    // Get the user's IP address
+    $ip = getIPAddress();
+    $total = 0;
+
+    // Corrected SQL query with WHERE keyword
+    $cart_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip'";
+    $result = mysqli_query($conn, $cart_query);
+
+    while ($row = mysqli_fetch_array($result)) {
+        $product_id = $row['product_id'];
+        $quantity = $row['quantity']; // Get the quantity for the current item
+
+        // Fetch product price from products table
+        $product_query = "SELECT * FROM `products` WHERE product_id = $product_id";
+        $result_product = mysqli_query($conn, $product_query);
+
+        // Fetch the product price and multiply it by the quantity, then add it to the total
+        if ($row_product_price = mysqli_fetch_array($result_product)) {
+            $product_price = $row_product_price['product_price'];
+            $total += $product_price ; // Multiply product price by quantity
+        }
+    }
+
+    echo $total;
+}
+
+
+
+
 
 
 
