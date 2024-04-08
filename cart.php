@@ -99,18 +99,8 @@ include("./Functiom/common_function.php");
             <form action="" method="post">
                 <div class="row">
                     <table class="table table-bordered text-center">
-                        <thead>
-                            <tr>
-                                <th>Product-Title</th>
-                                <th>Product Image</th>
-                                <th>Quantity</th>
-                                <th>Total Price</th>
-                                <th>Remove</th>
-                                <th colspan="2">Operation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+
+                        <?php
                 // Get the user's IP address
                 $ip = getIPAddress();
                 $total = 0;
@@ -118,8 +108,20 @@ include("./Functiom/common_function.php");
                 // Corrected SQL query with WHERE keyword
                 $cart_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip'";
                 $result = mysqli_query($conn, $cart_query);
-
-                while ($row = mysqli_fetch_array($result)) {
+                $count_cart = mysqli_num_rows(($result));
+                if($count_cart>0){
+                echo "<thead>
+                    <tr>
+                    <th>Product-Title</th>
+                    <th>Product Image</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Remove</th>
+                    <th colspan='2'>Operation</th>
+                    </tr>
+                    </thead>
+                <tbody>";
+                      while ($row = mysqli_fetch_array($result)) {
                     $product_id = $row['product_id'];
 
                     // Fetch product price from products table
@@ -134,35 +136,56 @@ include("./Functiom/common_function.php");
                         $product_img1 = $row_product_price['product_img1'];
                         $quantity = $row['quantity'];
                         $total += $product_price *$quantity;
-                ?>
-                            <tr>
-                                <td><?php echo $product_title; ?></td>
-                                <td><img class="cart_img" src='./Admin-area/productImages/<?php echo $product_img1 ?>'
-                                        alt=""></td>
-                                <td>
-                                    <input name="qty[<?php echo $product_id; ?>]" value="<?php echo $quantity; ?>"
-                                        type="number" class="form-control w-50 mx-auto">
-                                </td>
+                   ?>
+                        <tr>
+                            <td><?php echo $product_title; ?></td>
+                            <td><img class="cart_img" src='./Admin-area/productImages/<?php echo $product_img1 ?>'
+                                    alt=""></td>
+                            <td>
+                                <input name="qty[<?php echo $product_id; ?>]" value="<?php echo $quantity; ?>"
+                                    type="number" class="form-control w-50 mx-auto">
+                            </td>
 
-                                <td><?php echo $price_table; ?>/-</td>
-                                <td><input type="checkbox" name="removeitem[]" value="<?php  echo $product_id ?>"></td>
-                                <td>
-                                    <input type="submit" class="btn btn-primary" value="Update" name="update_cart">
+                            <td><?php echo $price_table * $quantity; ?>/-</td>
+                            <td><input type="checkbox" name="removeitem[]" value="<?php  echo $product_id ?>"></td>
+                            <td>
+                                <input type="submit" class="btn btn-primary" value="Update" name="update_cart">
 
-                                    <input type="submit" class="btn btn-danger" value="Remove" name="remove_cart">
-                                </td>
-                            </tr>
-                            <?php
+                                <input type="submit" class="btn btn-danger" value="Remove" name="remove_cart">
+                            </td>
+                        </tr>
+                        <?php
                     }
+                   }
+                }else{
+                         echo "<h4 class='text-center text-info mx-auto'>No Items Found!</h4>";
+
                 }
                 ?>
                         </tbody>
                     </table>
-                    <div class="d-flex gap-4">
-                        <h4>Subtotal : <strong class="text-info"><?php echo $total; ?>/-</strong></h4>
-                        <a href="./index.php"><button class="btn btn-danger px-3">Continue Shopping</button></a>
-                        <a href="#"><button class="btn btn-warning px-3">Check-Out</button></a>
-                    </div>
+
+                    <?php
+                     // Get the user's IP address
+                $ip = getIPAddress();
+                    // Corrected SQL query with WHERE keyword
+                $cart_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip'";
+                $result = mysqli_query($conn, $cart_query);
+                $count_cart = mysqli_num_rows(($result));
+                if($count_cart>0){
+
+                    echo "     <div class='d-flex gap-4'>
+                   <h4>Subtotal : <strong class='text-info'>" . $total . "/-</strong></h4>
+                   <a href='./checkout.php' class='btn btn-danger px-3 py2'>Continue Shopping</a>
+                   <a href='./checkout.php' class='btn btn-warning px-3'>Check-Out</a>
+
+                 
+                </div>";
+                }else{
+                echo "<a href='./index.php' class='btn btn-danger px-3 py2'>Continue Shopping</a>";
+                }
+                ?>
+
                 </div>
             </form>
             <?php
