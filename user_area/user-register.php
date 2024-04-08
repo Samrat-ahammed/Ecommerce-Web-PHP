@@ -75,7 +75,7 @@
                             name="user_contact">
                     </div>
                     <div class="text-center">
-                        <input type="submit" class="btn btn-primary py-2 px-3" name="user_register">
+                        <input type="submit" class="btn btn-primary py-2 px-3" name="user_register" value="Register">
                         <p class="mt-2 small fw-bold">Already Have Account ? <a href="./user_login.php"
                                 class="fw-bold">Login</a></p>
                     </div>
