@@ -19,8 +19,8 @@
 
 <body>
     <div class="container-fluid m-3">
-        <h2 class="text-center">Register Here</h2>
-        <div class="row d-flex align-items-center justify-content-center">
+        <h2 class="text-center mb-5">Login Here</h2>
+        <div class="row d-flex align-items-center justify-content-center  mt-5">
             <div class="col-lg-12 col-xl-6">
                 <form action="" method="post" enctype="multipart/form-data">
 

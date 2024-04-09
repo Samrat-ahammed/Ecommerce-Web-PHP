@@ -81,7 +81,7 @@ include("./Functiom/common_function.php");
                     <a class="nav-link" href="#">Welcome Guest</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="./user_area/user_login.php">Login</a>
                 </li>
             </ul>
         </nav>
@@ -176,7 +176,7 @@ include("./Functiom/common_function.php");
 
                     echo "     <div class='d-flex gap-4'>
                    <h4>Subtotal : <strong class='text-info'>" . $total . "/-</strong></h4>
-                   <a href='./checkout.php' class='btn btn-danger px-3 py2'>Continue Shopping</a>
+                   <a href='./index.php' class='btn btn-danger px-3 py2'>Continue Shopping</a>
                    <a href='./checkout.php' class='btn btn-warning px-3'>Check-Out</a>
 
                  

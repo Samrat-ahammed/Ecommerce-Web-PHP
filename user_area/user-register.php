@@ -1,3 +1,10 @@
+<?php
+include("../includes/connect.php");
+include("../Functiom/common_function.php");
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,8 +26,8 @@
 
 <body>
     <div class="container-fluid m-3">
-        <h2 class="text-center">Register Here</h2>
-        <div class="row d-flex align-items-center justify-content-center">
+        <h2 class="text-center mb-5">Register Here</h2>
+        <div class="row d-flex align-items-center justify-content-center mt-5">
             <div class="col-lg-12 col-xl-6">
                 <form action="" method="post" enctype="multipart/form-data">
 
@@ -49,14 +56,14 @@
                     <div class="form-outline mb-4">
                         <!-- user Password  -->
                         <label for="user_password" class="from-label mb-2">User Password</label>
-                        <input type="password" id="user_user_password" class="form-control" placeholder="Your Password"
+                        <input type="text" id="user_user_password" class="form-control" placeholder="Your Password"
                             name="user_password">
                     </div>
 
                     <div class="form-outline mb-4">
                         <!-- user Password  -->
                         <label for="user_confirm_Password" class="from-label mb-2">Confirm Password</label>
-                        <input type="password" id="user_user_confirm_Password" class="form-control"
+                        <input type="text" id="user_user_confirm_Password" class="form-control"
                             placeholder="Confirm Password" name="user_confirm_Password">
                     </div>
 
@@ -86,3 +93,33 @@
 </body>
 
 </html>
+<?php
+include("../includes/connect.php");
+include("./Functiom/common_function.php");
+
+if(isset($_POST["user_register"])){
+    $user_name = $_POST['user_name'];
+    $user_email = $_POST['user_email'];
+    $password = $_POST['user_password'];
+    $confirm_password = $_POST['user_confirm_Password'];
+    $user_address = $_POST['user_address'];
+    $user_mobile = $_POST['user_contact'];
+    $user_ip = getIPAddress() ;
+
+    $user_image = $_FILES['user_image']['name']; 
+    $user_img_tmp = $_FILES['user_image']['tmp_name']; 
+    $user_img_destination = "./user_images/" . $user_img;
+    move_uploaded_file($user_img_tmp, "./user_images/$user_image");
+
+    // Inserting user data 
+    $insert_query = "INSERT INTO `user_table` (user_name,user_email,user_password,user_image,user_ip,user_address,user_mobile) VALUES ('$user_name','$user_email','$password','$user_image','$user_ip','$user_address','$user_mobile')";
+    $result_query = mysqli_query($conn, $insert_query);
+    
+    if($result_query){
+        echo "<script>alert('Registered Successfully')</script>";
+       
+    }else{
+        echo "<script>alert('Error: ". mysqli_error($conn). "')</script>";
+    }
+}
+?>
