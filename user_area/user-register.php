@@ -93,26 +93,41 @@ include("../Functiom/common_function.php");
 </body>
 
 </html>
+
+
+<!-- function for user registration in database  -->
 <?php
-include("../includes/connect.php");
-include("./Functiom/common_function.php");
 
 if(isset($_POST["user_register"])){
-    $user_name = $_POST['user_name'];
-    $user_email = $_POST['user_email'];
-    $password = $_POST['user_password'];
-    $confirm_password = $_POST['user_confirm_Password'];
-    $user_address = $_POST['user_address'];
-    $user_mobile = $_POST['user_contact'];
+    $user_name = mysqli_real_escape_string($conn, $_POST['user_name']);
+    $user_email = mysqli_real_escape_string($conn, $_POST['user_email']);
+    $password = mysqli_real_escape_string($conn, $_POST['user_password']);
+    $hash_password = password_hash($password, PASSWORD_DEFAULT);
+    $confirm_password = mysqli_real_escape_string($conn, $_POST['user_confirm_Password']);
+    $user_address = mysqli_real_escape_string($conn, $_POST['user_address']);
+    $user_mobile = mysqli_real_escape_string($conn, $_POST['user_contact']);
     $user_ip = getIPAddress() ;
 
+    $select_query = "SELECT * FROM `user_table` WHERE user_email = '$user_email'";
+    $result = mysqli_query($conn,$select_query);
+    $row_query = mysqli_num_rows($result);
+    if($row_query > 0){
+        echo "<script>alert('User Already Exist');</script>";
+        echo "<script>window.location.href='./user-register.php';</script>";
+    }
+    else if($password!==$confirm_password){
+    {
+        echo "<script>alert('Password Not Match');</script>";
+        echo "<script>window.location.href='./user-register.php';</script>";
+    }
+    }else{
     $user_image = $_FILES['user_image']['name']; 
     $user_img_tmp = $_FILES['user_image']['tmp_name']; 
-    $user_img_destination = "./user_images/" . $user_img;
+    $user_img_destination = "./user_images/" . $user_image;
     move_uploaded_file($user_img_tmp, "./user_images/$user_image");
 
     // Inserting user data 
-    $insert_query = "INSERT INTO `user_table` (user_name,user_email,user_password,user_image,user_ip,user_address,user_mobile) VALUES ('$user_name','$user_email','$password','$user_image','$user_ip','$user_address','$user_mobile')";
+    $insert_query = "INSERT INTO `user_table` (user_name,user_email,user_password,user_image,user_ip,user_address,user_mobile) VALUES ('$user_name','$user_email','$hash_password','$user_image','$user_ip','$user_address','$user_mobile')";
     $result_query = mysqli_query($conn, $insert_query);
     
     if($result_query){
@@ -121,5 +136,7 @@ if(isset($_POST["user_register"])){
     }else{
         echo "<script>alert('Error: ". mysqli_error($conn). "')</script>";
     }
+    }
 }
+
 ?>
