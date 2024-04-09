@@ -2,6 +2,7 @@
 <?php
 include("./includes/connect.php");
 include("./Functiom/common_function.php");
+@session_start();
 ?>
 
 

@@ -137,6 +137,17 @@ if(isset($_POST["user_register"])){
         echo "<script>alert('Error: ". mysqli_error($conn). "')</script>";
     }
     }
+
+    $select_cart_items = "SELECT * FROM `cart_details` WHERE ip_address ='$user_ip'";
+    $result_cart = mysqli_query($conn, $select_cart_items);
+    $cart_rows = mysqli_num_rows($result_cart);
+    if($cart_rows > 0){
+        $_SESSION=$user_name;
+        echo "<script>alert('some items in your cart');</script>";
+        echo "<script>window.location.href='../checkout.php';</script>";
+    }else{
+        echo "<script>window.location.href='../index.php';</script>";
+    }
 }
 
 ?>
