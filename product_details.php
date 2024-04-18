@@ -2,7 +2,7 @@
 <?php
 include("./includes/connect.php");
 include("./Functiom/common_function.php");
-
+session_start();
 
 ?>
 
@@ -78,12 +78,27 @@ include("./Functiom/common_function.php");
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Welcome Guest</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./user_area/user_login.php">Login</a>
-                </li>
+                <?php
+                if(!isset($_SESSION["user_email"])){
+                   echo "<li class='nav-item'>
+                   <a class='nav-link' href='#'>Welcome Guest</a>
+                    </li>";
+                }else{
+                    echo "<li class='nav-item'>
+                    <a class='nav-link text-info' href='#'>Welcome ".$_SESSION["user_name"]."</a>
+                     </li>";
+                }
+                ?>
+                <?php
+                if(!isset($_SESSION["user_email"])){
+                   echo " <li class='nav-item'>
+                   <a class='nav-link' href='./user_area/user_login.php'>Login</a>
+                   </li>";
+                }else{
+                    echo " <li class='nav-item'>
+                   <a class='nav-link' href='#'>Logout</a>";
+                }
+                ?>
             </ul>
         </nav>
 

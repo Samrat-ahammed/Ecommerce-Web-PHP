@@ -12,7 +12,7 @@ include("./Functiom/common_function.php");
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ecommerce website -CheckOut Page</title>
+    <title>E-commerce website -Payment</title>
     <!-- bootstrap link  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -70,12 +70,30 @@ include("./Functiom/common_function.php");
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Welcome Guest</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
+                <?php
+                if(!isset($_SESSION["user_email"])){
+                   echo "<li class='nav-item'>
+                   <a class='nav-link' href='#'>Welcome Guest</a>
+                    </li>";
+                }else{
+                    echo "<li class='nav-item'>
+                    <a class='nav-link text-info' href='#'>Welcome ".$_SESSION["user_name"]."</a>
+                     </li>";
+                }
+                ?>
+
+
+                <?php
+                if(!isset($_SESSION["user_email"])){
+                   echo " <li class='nav-item'>
+                   <a class='nav-link' href='./user_area/user_login.php'>Login</a>
+                   </li>";
+                }else{
+                    echo " <li class='nav-item'>
+                   <a class='nav-link' href='./logout.php'>Logout</a>";
+                }
+                ?>
+
             </ul>
         </nav>
 
@@ -89,13 +107,14 @@ include("./Functiom/common_function.php");
         <div class="row">
 
             <?php
-        
-        if(!isset($_SESSION['userName'])){
-        include('./user_area/user_login.php');
-        }else{ 
-            include('./payment.php');
-         }
-        ?>
+                 if (isset($_SESSION['user_email'])) {
+                     include('./payment.php');
+                    } else {
+                    include('./user_area/user_login.php');
+
+                }
+                
+                    ?>
 
 
 

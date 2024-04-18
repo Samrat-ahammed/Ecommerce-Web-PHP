@@ -21,10 +21,57 @@ include("../Functiom/common_function.php");
     <!-- link favIcon  -->
     <link rel="icon" href="../images/logo.png" type="image/x-icon">
     <!-- css file link  -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
+    <div class="container-fluid p-0">
+        <!-- first child  -->
+        <nav class="navbar navbar-expand-lg bg-info">
+            <div class="container-fluid">
+                <img src="../images/logo.png" alt="" class="logo">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./display_products.php">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./user_area/user-register.php">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php 
+                            get_cart_data();
+                            ?></sup> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Total-Price <?php
+                            total_card_price ();
+                            ?>/-</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search" action="./search_Product.php" method="get">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            name="search_data">
+                        <input type="submit" value="Search" class="btn btn-outline-light" name="search_data_product">
+                    </form>
+
+                </div>
+            </div>
+        </nav>
+
+
+    </div>
     <div class="container-fluid m-3">
         <h2 class="text-center mb-5">Register Here</h2>
         <div class="row d-flex align-items-center justify-content-center mt-5">
@@ -142,7 +189,7 @@ if(isset($_POST["user_register"])){
     $result_cart = mysqli_query($conn, $select_cart_items);
     $cart_rows = mysqli_num_rows($result_cart);
     if($cart_rows > 0){
-        $_SESSION=$user_name;
+        $_SESSION["user_email"]=$user_name;
         echo "<script>alert('some items in your cart');</script>";
         echo "<script>window.location.href='../checkout.php';</script>";
     }else{

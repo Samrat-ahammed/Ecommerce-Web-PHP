@@ -19,59 +19,13 @@ session_start();
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- link favIcon  -->
-    <link rel="icon" href="./../images/logo.png" type="image/x-icon">
+    <!-- <link rel="icon" href="../images/logo.png" type="image/x-icon"> -->
     <!-- css file link  -->
     <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-    <div class="container-fluid p-0">
-        <!-- first child  -->
-        <nav class="navbar navbar-expand-lg bg-info">
-            <div class="container-fluid">
-                <img src="./images/logo.png" alt="" class="logo">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./display_products.php">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./user_area/user-register.php">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php 
-                            get_cart_data();
-                            ?></sup> </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Total-Price <?php
-                            total_card_price ();
-                            ?>/-</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search" action="./search_Product.php" method="get">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="search_data">
-                        <input type="submit" value="Search" class="btn btn-outline-light" name="search_data_product">
-                    </form>
 
-                </div>
-            </div>
-        </nav>
-
-
-    </div>
     <div class="container-fluid m-3">
         <h2 class="text-center mb-5">Login Here</h2>
         <div class="row d-flex align-items-center justify-content-center  mt-5">
@@ -128,17 +82,18 @@ if(isset($_POST["user_login"])){
         if($number > 0){
         $row_data = mysqli_fetch_assoc($result_query);
         if(password_verify($user_password, $row_data["user_password"])){
-            $user_id = getIPAddress();
+            $ip_address = getIPAddress();
             $select_cart_query = "SELECT * FROM `cart_details` WHERE ip_address = '$ip_address' ";
             $select_cart = mysqli_query($conn, $select_cart_query);
             $count_rows = mysqli_num_rows($select_cart);
+            $_SESSION["user_name"] = $row_data["user_name"]; 
             if($number ==1 && $count_rows==0){
-                $_SESSION = $user_email;
+                $_SESSION["user_email"] = $user_email;
                 echo "<script>alert('Login Successfully');</script>";
                 echo "<script>window.location.href='../index.php';</script>";
             }
             else{
-                $_SESSION = $user_email;
+                $_SESSION["user_email"] = $user_email;
                 echo "<script>alert('Login Successfully');</script>";
                 echo "<script>window.location.href='../payment.php';</script>";
             }
@@ -146,17 +101,15 @@ if(isset($_POST["user_login"])){
                 echo "<script>alert('Login Failed');</script>";
                 echo "<script>window.location.href='./user_login.php';</script>";
             }
-
-            
-
-
-        }else{
+            }else{
             echo "<script>alert('Invalid Password');</script>";
             echo "<script>window.location.href='./user_login.php';</script>";
-        }
-        }else{
+
+            }
+            }else{
             echo "<script>alert('Invalid User');</script>";
-        }
+
+            }
     
 
 
