@@ -344,7 +344,7 @@ function cart() {
             echo "<script>alert('Product already in cart')</script>";
         } else {
             // Insert product into cart
-            $insert_query = "INSERT INTO `cart_details` (product_id, ip_address, quantity) VALUES ($get_product_id, '$ip', 1)";
+            $insert_query = "INSERT INTO `cart_details` (product_id, ip_address, quantity) VALUES ($get_product_id, '$ip',0)";
             $result_Query = mysqli_query($conn, $insert_query);
             if($result_Query) {
                 // Product successfully added to cart

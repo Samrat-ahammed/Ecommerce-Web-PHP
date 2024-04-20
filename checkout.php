@@ -63,6 +63,7 @@ include("./Functiom/common_function.php");
             </div>
         </nav>
         <?php
+    
          cart();
             ?>
 

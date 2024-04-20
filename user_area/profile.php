@@ -1,8 +1,8 @@
 <!-- connect include folder -->
 <?php
-include("./includes/connect.php");
-include("./Functiom/common_function.php");
-session_start();
+include("../includes/connect.php");
+include("../Functiom/common_function.php");
+
 ?>
 
 
@@ -12,7 +12,7 @@ session_start();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ecommerce website useing php</title>
+    <title>Profile Page</title>
     <!-- bootstrap link  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -23,7 +23,7 @@ session_start();
     <!-- link favIcon  -->
     <link rel="icon" href="../images/logo.png" type="image/x-icon">
     <!-- css file link  -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../style.css">
 
 </head>
 
@@ -32,7 +32,7 @@ session_start();
         <!-- first child  -->
         <nav class="navbar navbar-expand-lg bg-info">
             <div class="container-fluid">
-                <img src="./images/logo.png" alt="" class="logo">
+                <img src="../images/logo.png" alt="" class="logo">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -72,9 +72,7 @@ session_start();
                 </div>
             </div>
         </nav>
-        <?php
-         cart();
-            ?>
+
 
         <!-- secund child  -->
 
