@@ -3,6 +3,9 @@
 include("../includes/connect.php");
 include("../Functiom/common_function.php");
 session_start();
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 ?>
 
 
@@ -136,28 +139,31 @@ session_start();
                         </a>
                     </li>
                     <?php
-$user_name  = $_SESSION["user_name"];
-$user_img_query = "SELECT * FROM `user_table` WHERE user_name = '$user_name'";
-$result_query = mysqli_query($conn, $user_img_query);
-$row_image = mysqli_fetch_array($result_query);
-$user_image = $row_image["user_image"];
+                        $user_name  = $_SESSION["user_name"];
+                        $user_img_query = "SELECT * FROM `user_table` WHERE user_name = '$user_name'";
+                        $result_query = mysqli_query($conn, $user_img_query);
+                        $row_image = mysqli_fetch_array($result_query);
+                        $user_image = $row_image["user_image"];
 
-echo "<li class='nav-item bg-info px-2'>
-<img src='./user_images/$user_image' alt='User Image' class='img-fluid'>
-</li>";
-?>
+                        echo "<li class='nav-item bg-info px-2'>
+                        <img src='./user_images/$user_image' alt='User Image' class='img-fluid'>
+                        </li>";
+                        ?>
 
                     <li class='nav-item px-2'>
-                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>Pending Order</a>
+                        <a href='profile.php' class='nav-link text-light text-center'>Pending Order</a>
                     </li>
                     <li class='nav-item px-2'>
-                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>Edit Account</a>
+                        <a href='profile.php?edit_account' class='nav-link text-light text-center'>Edit Account</a>
                     </li>
                     <li class='nav-item px-2'>
-                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>My Order</a>
+                        <a href='profile.php?my_order' class='nav-link text-light text-center'>My Order</a>
                     </li>
                     <li class='nav-item px-2'>
-                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>Delete Account</a>
+                        <a href='profile.php?delete_account' class='nav-link text-light text-center'>Delete Account</a>
+                    </li>
+                    <li class='nav-item px-2'>
+                        <a href='../logout.php' class='nav-link text-light text-center'>Logout</a>
                     </li>
 
                 </ul>
@@ -166,11 +172,17 @@ echo "<li class='nav-item bg-info px-2'>
 
 
             </div>
+            <div class="col-md-10">
+
+                <?php
+                get_user_order_details ();
+                ?>
+            </div>
         </div>
 
         <!-- last child  -->
         <?php
-        include("./includes/footer.php")
+        include("../includes/footer.php")
         ?>
     </div>
 

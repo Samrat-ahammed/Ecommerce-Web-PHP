@@ -418,6 +418,44 @@ function total_card_price (){
 
 
 
+// get user_order details 
+function get_user_order_details (){
+global $conn;
+$user_name  = $_SESSION["user_name"];
+$get_details = "SELECT * FROM `user_table` WHERE user_name = '$user_name'";
+$result = mysqli_query($conn, $get_details);
+while ($row_query = mysqli_fetch_array($result)) {
+    $user_id = $row_query['user_id'];
+    if(!isset($_GET["edit_account"])){
+        if(!isset($_GET["my_order"])){
+            if(!isset($_GET["delete_account"])){
+                $get_order = "SELECT * FROM `user_order` WHERE `user_id` = $user_id AND order_status = 'pending'";
+
+                $result_order_query = mysqli_query($conn,$get_order);
+                $row_count = mysqli_num_rows($result_order_query);
+                if($row_count >0){
+                    echo "<div class='d-flex flex-column align-items-center justify-content-center' style='height: 100vh;'>";
+                    echo "<h3 class='text-info'>You have $row_count order pending</h3>";
+                    echo "<a href='profile.php?my_order' class='btn btn-info btn-sm'>View Order</a>";
+                    echo "</div>";
+                    
+                }else{
+                    echo "<div class='d-flex flex-column align-items-center justify-content-center' style='height: 100vh;'>";
+                    echo "<h3 class='text-info'>You have 0 order pending</h3>";
+                    echo "<a href='../index.php' class='btn btn-info btn-sm'>Explore Products</a>";
+                    echo "</div>";
+
+                }
+
+            }
+
+        }
+
+    }
+
+    }
+
+}
 
 
 
