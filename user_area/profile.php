@@ -2,7 +2,7 @@
 <?php
 include("../includes/connect.php");
 include("../Functiom/common_function.php");
-
+session_start();
 ?>
 
 
@@ -24,7 +24,15 @@ include("../Functiom/common_function.php");
     <link rel="icon" href="../images/logo.png" type="image/x-icon">
     <!-- css file link  -->
     <link rel="stylesheet" href="../style.css">
+    <style>
+    img {
 
+        padding: 5px;
+        width: 80%;
+        display: block;
+        margin: auto;
+    }
+    </style>
 </head>
 
 <body>
@@ -116,20 +124,7 @@ include("../Functiom/common_function.php");
 
             <!-- products  -->
 
-            <div class="col-md-10">
-                <div class="row">
 
-                    <?php
-                        // fetching product 
-                        getProduct();
-                        get_unq_category();
-                        get_unq_brands();
-                 
-                       
-
-                    ?>
-                </div>
-            </div>
 
             <div class="col-md-2 bg-secondary p-0">
                 <!-- sideNav  -->
@@ -137,29 +132,37 @@ include("../Functiom/common_function.php");
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item bg-info px-2">
                         <a href="#" class="nav-link text-center">
-                            <h4>Delivery Brands</h4>
+                            <h4>Your Profile</h4>
                         </a>
                     </li>
+                    <?php
+$user_name  = $_SESSION["user_name"];
+$user_img_query = "SELECT * FROM `user_table` WHERE user_name = '$user_name'";
+$result_query = mysqli_query($conn, $user_img_query);
+$row_image = mysqli_fetch_array($result_query);
+$user_image = $row_image["user_image"];
 
-                    <?php 
-                getBrands();
-                
+echo "<li class='nav-item bg-info px-2'>
+<img src='./user_images/$user_image' alt='User Image' class='img-fluid'>
+</li>";
+?>
 
-                  ?>
+                    <li class='nav-item px-2'>
+                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>Pending Order</a>
+                    </li>
+                    <li class='nav-item px-2'>
+                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>Edit Account</a>
+                    </li>
+                    <li class='nav-item px-2'>
+                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>My Order</a>
+                    </li>
+                    <li class='nav-item px-2'>
+                        <a href='index.php?brand=$brands_id' class='nav-link text-light text-center'>Delete Account</a>
+                    </li>
 
                 </ul>
 
-                <!-- Categories -->
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item bg-info px-2">
-                        <a href="#" class="nav-link text-center">
-                            <h4>Categories</h4>
-                        </a>
-                    </li>
-                    <?php 
-                       getCategory()
-                       ?>
-                </ul>
+
 
 
             </div>
