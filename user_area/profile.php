@@ -28,12 +28,19 @@ error_reporting(E_ALL);
     <!-- css file link  -->
     <link rel="stylesheet" href="../style.css">
     <style>
-    img {
+    .profile_img {
 
         padding: 5px;
         width: 80%;
         display: block;
         margin: auto;
+        object-fit: contain;
+    }
+
+    .edit_img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
     }
     </style>
 </head>
@@ -146,7 +153,7 @@ error_reporting(E_ALL);
                         $user_image = $row_image["user_image"];
 
                         echo "<li class='nav-item bg-info px-2'>
-                        <img src='./user_images/$user_image' alt='User Image' class='img-fluid'>
+                        <img src='./user_images/$user_image' alt='User Image' class='profile_img'>
                         </li>";
                         ?>
 
@@ -172,10 +179,16 @@ error_reporting(E_ALL);
 
 
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 text-center">
 
                 <?php
                 get_user_order_details ();
+                if(isset($_GET["edit_account"])){
+                    include("./edit_account.php");
+                }
+                if(isset($_GET["my_order"])){
+                    include("./my_order.php");
+                }
                 ?>
             </div>
         </div>

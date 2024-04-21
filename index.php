@@ -52,6 +52,17 @@ session_start();
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
                         </li>
+
+
+                        <?php
+                            if(isset($_SESSION["user_email"]) || empty($_SESSION["user_email"])) {
+                                echo "<li class='nav-item'>
+                                        <a class='nav-link' href='./user_area/profile.php'>Profile</a>
+                                    </li>";
+                            }
+                                ?>
+
+
                         <li class="nav-item">
                             <a class="nav-link" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php 
                             get_cart_data();
